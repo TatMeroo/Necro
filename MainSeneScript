@@ -1,0 +1,119 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MainSceneScript : MonoBehaviour {
+
+
+
+
+
+	public bool camMoonShot;
+	public bool camMoonEntrance;
+	public bool camMoonExit;
+
+	public bool camEarthShot;
+	public bool camEarthEntrance;
+	public bool camEarthExit;
+
+	public bool camSatelliteShot;
+	public bool satelliteEntrance;
+	public bool satelliteExit;
+
+	public bool camLateralShot;
+	public bool sideMoonEntrance;
+	public bool sideMoonExit;
+	public bool sideEarthEntrance;
+	public bool sideEarthExit;
+
+	public Vector3 camCurrentPos;
+	public Quaternion camCurrentRot;
+	public Vector3 camTargetPos;
+
+	public bool dejaVu;
+	public bool camOnMove;
+	public bool camStop;
+	public float camSpeed;
+	public float timeBeforeStart;
+	public float camZoomSpeed;
+	public float DistanceToObject;
+	public float distanceBeforGoal;
+
+	public bool skipStartClip;
+
+	public bool introTitle = false;
+
+	public Animator camAnimator;
+
+	Vector3 StartShot;
+	Vector3 MoonShot;
+	Vector3 EarthShot;
+	Vector3 SatelliteShot;
+	Vector3 sideMoonMove;
+	Vector3 sideEarthMove;
+
+	float clipLength;
+	string clipName;
+	public bool introBlackscreen = false; //
+
+
+	void Start()
+	{
+		if (dejaVu == true)
+		{
+			introBlackscreen = true;
+		}
+
+		camAnimator = this.GetComponent<Animator>();
+		StartShot = transform.localPosition;
+
+	}
+
+	void Update()
+	{
+		camCurrentPos = transform.position;
+		camCurrentRot = transform.rotation;
+
+		clipLength = camAnimator.runtimeAnimatorController.animationClips[0].length;
+		clipName = camAnimator.runtimeAnimatorController.animationClips[0].name;
+
+		if (dejaVu == false)
+		{
+			StartCoroutine("Starting");
+		}
+
+		if (skipStartClip == true)
+		{
+			introBlackscreen = true;
+			skipStartClip = false;
+		}
+	}
+
+	IEnumerator Starting()
+	{
+		dejaVu = true;
+		Debug.Log("debut coroutine pre intro");
+		yield return new WaitForSeconds(timeBeforeStart);
+		camAnimator.SetBool("StartingDefautMode", true);
+		Debug.Log("fin coroutine pre intro");
+		yield return new WaitForSeconds(clipLength);
+		Debug.Log("fin anim");
+	}
+
+	void IntroTitle()
+	{
+		Debug.Log("ok");
+		introTitle = true;
+	}
+
+	void FadeToBlack()
+	{
+		Debug.Log("fondu au noir");
+		introBlackscreen = false;
+	}
+
+	void InvokeAsteroide()
+	{
+		Debug.Log("asteroide");
+	}
+}
