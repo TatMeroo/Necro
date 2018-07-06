@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlanetsOrbitsScript : MonoBehaviour {
+
+	public GameObject moon;
+	public GameObject earth;
+
+	public float moonSpeedRot;
+	public float earthSpeedRot;
+	public float moonSpeedOrbit;
+
+	public bool orbiter = false;
+
+	void Update()
+	{
+		if (orbiter == true)
+		{
+			moon.transform.Rotate(Vector3.up * Time.deltaTime * moonSpeedRot, Space.Self);
+			earth.transform.Rotate(Vector3.up * Time.deltaTime * earthSpeedRot, Space.Self);
+			moon.transform.RotateAround(earth.transform.position, -Vector3.up, moonSpeedOrbit * Time.deltaTime);
+		}
+	}
+}
