@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// utilisé sur un empty pour le rendre persistent. Celui-ci ne disparaitra pas quand la scène est unloadée ou loadée. //
+/// A poser sur le mainManager (NecroManager), premier folder (empty) de la scène 0.Preload. //
+
 public class DDOL : MonoBehaviour
 {
 	private void Awake()
